@@ -1,6 +1,7 @@
 package com.api.rest.disney.controller;
 
 import com.api.rest.disney.models.Character;
+import com.api.rest.disney.models.Movie;
 import com.api.rest.disney.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,16 @@ public class CharacterController {
             return characterService.findByName(name);
         } else {
             return characterService.findByAgeOrderByNameAsc(age);
+        }
+    }
+
+    @GetMapping("/{id}/movies")
+    public ResponseEntity<Collection<Movie>> movieByCharacter (@PathVariable Long id) {
+        Character character = characterService.findCharacterById(id);
+        if (character != null) {
+            return new ResponseEntity<>(character.getMovies(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 

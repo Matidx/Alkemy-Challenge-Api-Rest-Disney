@@ -1,6 +1,5 @@
 package com.api.rest.disney.controller;
 
-import com.api.rest.disney.models.Character;
 import com.api.rest.disney.models.Movie;
 import com.api.rest.disney.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -86,11 +86,11 @@ public class Movie {
         this.genderId = genderId;
     }
 
-    public Set<com.api.rest.disney.models.Character> getCharacters() {
+    public Set<Character> getCharacters() {
         return characters;
     }
 
-    public void setCharacters(Set<com.api.rest.disney.models.Character> characters) {
+    public void setCharacters(Set<Character> characters) {
         this.characters = characters;
     }
 }

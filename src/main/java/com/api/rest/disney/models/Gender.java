@@ -45,11 +45,11 @@ public class Gender {
         this.urlImage = urlImage;
     }
 
-    public Set<com.api.rest.disney.models.Movie> getMovies() {
+    public Set<Movie> getMovies() {
         return movies;
     }
 
-    public void setMovies(Set<com.api.rest.disney.models.Movie> movies) {
+    public void setMovies(Set<Movie> movies) {
         this.movies = movies;
     }
 }

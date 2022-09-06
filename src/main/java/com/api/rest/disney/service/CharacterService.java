@@ -1,7 +1,9 @@
 package com.api.rest.disney.service;
 
 import com.api.rest.disney.models.Character;
+import com.api.rest.disney.models.Movie;
 import com.api.rest.disney.repository.CharacterRepository;
+import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
