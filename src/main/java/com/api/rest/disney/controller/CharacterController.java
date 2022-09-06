@@ -1,18 +1,15 @@
 package com.api.rest.disney.controller;
 
 import com.api.rest.disney.models.Character;
-import com.api.rest.disney.models.Movie;
 import com.api.rest.disney.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/characters")
@@ -57,13 +54,13 @@ public class CharacterController {
     @PutMapping("/update/{id}")
     public ResponseEntity<Character> updateCharacter (@PathVariable Long id, @RequestBody Character character) {
         Optional<Character> optionalCharacter = Optional.ofNullable(this.characterService.findCharacterById(id));
-        Character character1 = optionalCharacter.get();
-        character.setIdCharacter(character1.getIdCharacter());
+        Character characterGet = optionalCharacter.get();
+        character.setIdCharacter(characterGet.getIdCharacter());
         return new ResponseEntity<>(characterService.saveCharacter(character), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteCharacter (@PathVariable(name = "id") long id) {
+    public ResponseEntity<String> deleteCharacter (@PathVariable(name = "id") Long id) {
         characterService.deleteCharacterById(id);
         return new ResponseEntity<>("Character removed successfully. Id= " + id, HttpStatus.OK );
     }

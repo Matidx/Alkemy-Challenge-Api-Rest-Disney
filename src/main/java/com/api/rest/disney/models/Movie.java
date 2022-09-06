@@ -36,7 +36,7 @@ public class Movie {
     @ManyToMany
     @JoinTable(name = "character_movie",joinColumns = @JoinColumn(name = "id_movie", referencedColumnName = "id_movie"),
             inverseJoinColumns = @JoinColumn(name = "id_character", referencedColumnName = "id_character"))
-    private Set<com.api.rest.disney.models.Character> characters = new HashSet<>();
+    private Set<Character> characters = new HashSet<>();
 
     public Long getIdMovie() {
         return idMovie;

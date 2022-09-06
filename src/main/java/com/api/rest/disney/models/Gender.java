@@ -19,7 +19,7 @@ public class Gender {
     private String urlImage;
 
     @OneToMany(mappedBy = "genderId", cascade = CascadeType.ALL)
-    private Set<com.api.rest.disney.models.Movie> movies = new HashSet<>();
+    private Set<Movie> movies = new HashSet<>();
 
     public Long getIdGender() {
         return idGender;
