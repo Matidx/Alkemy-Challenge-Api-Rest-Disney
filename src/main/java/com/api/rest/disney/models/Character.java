@@ -3,6 +3,9 @@ package com.api.rest.disney.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,14 +19,21 @@ public class Character {
     private Long idCharacter;
 
     @Column(name = "url_image")
+    @NotEmpty(message = "The urlImage must not be empty or null")
     private String urlImage;
 
+    @NotEmpty
+    @Size(min = 2, message ="The name of the character must have a minimum of 2 characters")
     private String name;
 
+    @NotNull(message = "The age must not be empty or null")
     private Integer age;
 
+    @NotNull(message = "The weight must not be empty or null")
     private Double weight;
 
+    @NotEmpty(message = "The history must not be empty or null")
+    @Size(min = 10, message = "The history of the character must have a minimum of 10 characters")
     private String history;
 
     @ManyToMany

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,14 +19,21 @@ public class Movie {
     private Long idMovie;
 
     @Column(name = "url_image")
+    @NotEmpty(message = "The urlImage must not be empty or null")
     private String urlImage;
 
+    @NotEmpty
+    @Size(min = 2, message ="The title of the movie must have a minimum of 2 characters")
     private String title;
 
     @Column(name = "creation_date")
+    @NotNull(message = "The creationDate must not be empty or null")
     @JsonFormat(pattern = "YYYY-MM-DD")
     private Date creationDate;
 
+    @NotNull(message = "The rating of the film must be from 1 to 5")
+    @Min(value = 1, message = "The rating of the film must be from 1 to 5")
+    @Max(value = 5, message = "The rating of the film must be from 1 to 5")
     private Integer qualification;
 
     @ManyToOne(fetch = FetchType.EAGER)

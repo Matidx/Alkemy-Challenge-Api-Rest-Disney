@@ -1,37 +1,24 @@
 package com.api.rest.disney.service;
 
+import com.api.rest.disney.exception.ResourceNotFoundException;
+import com.api.rest.disney.models.Gender;
 import com.api.rest.disney.models.Movie;
-import com.api.rest.disney.repository.MovieRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class MovieService {
+public interface MovieService {
 
-    @Autowired
-    private MovieRepository movieRepository;
+    public Collection<Movie> findAllMovies ();
 
-    public Collection<Movie> findAll () {
-        return (Collection<Movie>) movieRepository.findAll();
-    }
+    public Optional<Movie> findMovieById (Long id) throws ResourceNotFoundException;
 
-    public Movie findMovieById (Long id) {
-        return movieRepository.findById(id).orElseThrow();
-    }
+    public List<Movie> findByTitle (String title) throws ResourceNotFoundException;
 
-    public Optional<List<Movie>> findByTitle (String title) {
-        return movieRepository.findByTitle(title);
-    }
+    public Optional<Gender> findGenderById (Long idGender) throws ResourceNotFoundException;
 
-    public Movie saveMovie (Movie movie) {
-        return movieRepository.save(movie);
-    }
+    public Movie saveMovie (Movie movie);
 
-    public void deleteMovieById (Long id){
-        movieRepository.deleteById(id);
-    }
+    public void deleteMovieById (Long id);
 }

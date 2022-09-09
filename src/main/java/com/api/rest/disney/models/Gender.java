@@ -1,6 +1,8 @@
 package com.api.rest.disney.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,9 +15,12 @@ public class Gender {
     @Column(name = "id_gender")
     private Long idGender;
 
+    @NotEmpty
+    @Size(min = 2, message ="The name of the gender must have a minimum of 2 characters")
     private String name;
 
     @Column(name = "url_image")
+    @NotEmpty(message = "The urlImage must not be empty or null")
     private String urlImage;
 
     @OneToMany(mappedBy = "genderId", cascade = CascadeType.ALL)

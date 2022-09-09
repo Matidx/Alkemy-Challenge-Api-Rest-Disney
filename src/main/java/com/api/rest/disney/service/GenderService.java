@@ -1,31 +1,18 @@
 package com.api.rest.disney.service;
 
+import com.api.rest.disney.exception.ResourceNotFoundException;
 import com.api.rest.disney.models.Gender;
-import com.api.rest.disney.repository.GenderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Optional;
 
-@Service
-public class GenderService {
+public interface GenderService {
 
-    @Autowired
-    private GenderRepository genderRepository;
+    public Collection<Gender> findAllGenders ();
 
-    public Collection<Gender> findAll () {
-        return (Collection<Gender>) genderRepository.findAll();
-    }
+    public Optional<Gender> findGenderById (Long id) throws ResourceNotFoundException;
 
-    public Gender findGenderById (Long id) {
-        return genderRepository.findById(id).orElseThrow();
-    }
+    public Gender saveGender (Gender gender);
 
-    public Gender saveGender (Gender gender) {
-        return genderRepository.save(gender);
-    }
-
-    public void deleteGenderById (Long id){
-        genderRepository.deleteById(id);
-    }
+    public void deleteGenderById (Long id);
 }
