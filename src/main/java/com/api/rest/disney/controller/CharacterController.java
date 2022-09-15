@@ -6,6 +6,7 @@ import com.api.rest.disney.service.implement.CharacterServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -55,6 +56,7 @@ public class CharacterController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/save")
     public ResponseEntity<Character> saveCharacter (@Valid @RequestBody Character character) {
         return new ResponseEntity<>(characterServiceImpl.saveCharacter(character), HttpStatus.CREATED);
@@ -65,6 +67,7 @@ public class CharacterController {
         Optional<Character> optionalCharacter = Optional.ofNullable(this.characterServiceImpl.findCharacterById(id));
         Character characterGet = optionalCharacter.get();
         character.setIdCharacter(characterGet.getIdCharacter());
+        character.setMovies(characterGet.getMovies());
         return new ResponseEntity<>(characterServiceImpl.saveCharacter(character), HttpStatus.CREATED);
     }
 
