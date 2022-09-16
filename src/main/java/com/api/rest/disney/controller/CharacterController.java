@@ -62,6 +62,7 @@ public class CharacterController {
         return new ResponseEntity<>(characterServiceImpl.saveCharacter(character), HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{id}")
     public ResponseEntity<Character> updateCharacter (@PathVariable Long id,@Valid @RequestBody Character character) {
         Optional<Character> optionalCharacter = Optional.ofNullable(this.characterServiceImpl.findCharacterById(id));
@@ -71,6 +72,7 @@ public class CharacterController {
         return new ResponseEntity<>(characterServiceImpl.saveCharacter(character), HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteCharacter (@PathVariable(name = "id") Long id) {
         characterServiceImpl.deleteCharacterById(id);
