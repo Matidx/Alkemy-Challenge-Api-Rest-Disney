@@ -16,7 +16,6 @@ import com.api.rest.disney.security.entities.Message;
 import com.api.rest.disney.security.enums.RoleList;
 import com.api.rest.disney.security.service.RoleService;
 import com.api.rest.disney.security.service.UserService;
-import com.api.rest.disney.security.utilities.AddRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,17 +38,15 @@ public class AuthController {
     private final UserService userService;
     private final RoleService roleService;
     private final JwtProvider jwtProvider;
-    private final AddRoles addRoles;
 
     @Autowired
     public AuthController(AuthenticationManagerBuilder authenticationManagerBuilder, PasswordEncoder passwordEncoder,
-                          UserService userService, RoleService roleService, JwtProvider jwtProvider, AddRoles addRoles) {
+                          UserService userService, RoleService roleService, JwtProvider jwtProvider) {
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
         this.roleService = roleService;
         this.jwtProvider = jwtProvider;
-        this.addRoles = addRoles;
     }
     @PostMapping("/login")
     public ResponseEntity<Object> login(@Valid @RequestBody LoginUser loginUser, BindingResult bidBindingResult){
@@ -68,12 +65,6 @@ public class AuthController {
     }
     @PostMapping("/register")
     public ResponseEntity<Object> register(@Valid @RequestBody NewUser newUser, BindingResult bindingResult) throws SQLException {
-        if (roleService.findById(1).isEmpty()) {
-            addRoles.insertRecordUser();
-        }
-        if (roleService.findById(2).isEmpty()) {
-            addRoles.insertRecordAdmin();
-        }
         if (bindingResult.hasErrors())
             return new ResponseEntity<>(new Message("Please check the fields and try again"), HttpStatus.BAD_REQUEST);
         User user = new User(newUser.getUserName(), newUser.getEmail(),
